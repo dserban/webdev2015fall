@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <style>
+      table { border-spacing: 0px; }
+      .darkbg { background-color: black; }
+      button { margin-left: 40px; }
+    </style>
+  </head>
+  <body>
+    <table>
+      <tr>
+        <td class="darkbg">
+          <img src="images/<%= session[:color] == 'red' ? 'red' : 'dark' %>.png">
+        </td>
+        <td>
+          <form action="/changecolorto/red" method="post">
+            <button>Make it red</button>
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td class="darkbg">
+          <img src="images/<%= session[:color] == 'amber' ? 'amber' : 'dark' %>.png">
+        </td>
+        <td>
+          <form action="/changecolorto/amber" method="post">
+            <button>Make it amber</button>
+          </form>
+        </td>
+      </tr>
+      <tr>
+        <td class="darkbg">
+          <img src="images/<%= session[:color] == 'green' ? 'green' : 'dark' %>.png">
+        </td>
+        <td>
+          <form action="/changecolorto/green" method="post">
+            <button>Make it green</button>
+          </form>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>
+
