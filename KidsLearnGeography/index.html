@@ -1,0 +1,44 @@
+<html ng-app="AngularGeographyApp">
+<head>
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 30px;
+    }
+    td {
+      vertical-align: top;
+      padding-right: 50px;
+    }
+    label {
+      font-size: 20px;
+    }
+  </style>
+  <script src="js/angular.js"></script>
+  <script src="js/geographical_hierarchy.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body ng-controller="AngularGeographyController">
+  <h2>{{ appTitle }}</h2>
+  <table>
+    <tr>
+      <td>
+        <div ng-repeat="continent in g['continents']">
+          <label ng-click="setCountryIDs(continent);"><input type="radio" name="pick_continent">&nbsp;{{ continent['continent_name'] }}</label>
+        </div>
+      </td>
+      <td ng-show="appLevel >= 2">
+        <div ng-repeat="countryID in countryIDs">
+          <label ng-click="setCityIDs(countryID);"><input type="radio" name="pick_country">&nbsp;{{ getCountryName(countryID) }}</label>
+        </div>
+      </td>
+      <td ng-show="appLevel >= 3">
+        <div ng-repeat="cityID in cityIDs">
+          <label ng-click="disseminateCityInfo(cityID);"><input type="radio" name="pick_city">&nbsp;{{ getCityName(cityID) }}</label>
+        </div>
+      </td>
+    </tr>
+  </table>
+  <h2 ng-show="appLevel >= 4">{{ selectedCityName }} is a city located in the {{ selectedAdminDivisionName }} administrative division of {{ selectedCountryName }}, on the continent of {{ selectedContinentName }}, with a population of {{ selectedPopulation }}.</h2>
+</body>
+</html>
+
