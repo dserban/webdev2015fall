@@ -1,0 +1,27 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>URLShortener</title>
+  <style>
+    body { padding: 30px; font-family: sans-serif; }
+  </style>
+</head>
+<body>
+  <h1>URL Shortening Service</h1>
+  <form action="/performshortening" method="post">
+    <input type="text" name="longurl" size="40" placeholder="Long URL goes here">
+    <button type="submit">Shorten This URL</button>
+  </form>
+  <br>
+  <h3>In our database so far:</h3>
+  <table>
+  <% @all_pointers.each do |pointer| %>
+    <tr>
+      <td><a href="http://<%= request.host_with_port %>/<%= pointer.cryptic_id %>" target="_blank">http://<%= request.host_with_port %>/<%= pointer.cryptic_id %></a></td>
+      <td>redirects to <%= pointer.url %></td>
+    </tr>
+  <% end %>
+  </table>
+</body>
+</html>
+
