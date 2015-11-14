@@ -1,0 +1,106 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>ShoppingCartApp</title>
+<style>
+  body { padding: 10px; font-family: sans-serif; }
+  h1 { padding: 10px; }
+  table tr td { vertical-align: top; }
+  table tr td div.table .tr span.td { padding: 10px; }
+  #products { padding-right: 20px; border-right: 1px solid #7f7f7f; }
+  #cart { padding-left: 20px; }
+  div.table { display: table; }
+  div.tr    { display: table-row; }
+  form.tr   { display: table-row; }
+  span.td   { display: table-cell; padding: 5px; }
+  .rightj   { text-align: right; }
+</style>
+</head>
+<body>
+<table>
+  <tr>
+    <td>
+      <div class="table" id="products">
+        <div class="tr">
+          <span class="td"><h2>Products</h2></span>
+          <span class="td">&nbsp;</span>
+          <span class="td">&nbsp;</span>
+          <span class="td">&nbsp;</span>
+        </div>
+        <div class="tr">
+          <span class="td"><strong>Product Description</strong></span>
+          <span class="td"><strong>Unit Price</strong></span>
+          <span class="td"><strong>Qty.</strong></span>
+          <span class="td"><strong>&nbsp;</strong></span>
+        </div>
+<% @all_products.each do |product| %>
+        <form action="/addtoshoppingcart/<%= product.id %>" method="post" class="tr">
+          <span class="td"><%= product.description %></span>
+          <span class="td rightj">USD <%= product.price %></span>
+          <span class="td"><input type="text" name="quantity" value="1" size="1"></span>
+          <span class="td"><button type="submit">Add to cart</button></span>
+        </form>
+<% end %>
+        <div class="tr">
+          <span class="td">&nbsp;<h2>New Product</h2></span>
+          <span class="td">&nbsp;</span>
+          <span class="td">&nbsp;</span>
+          <span class="td">&nbsp;</span>
+        </div>
+        <form action="/addnewproduct" method="post" class="tr">
+          <span class="td">
+            <input type="text" name="description" placeholder="Product description">
+          </span>
+          <span class="td">
+            USD <input type="text" name="price" size="3" placeholder="Price">
+          </span>
+          <span class="td">&nbsp;</span>
+          <span class="td"><button type="submit">Add to product catalog</button></span>
+        </form>
+      </div>
+    </td>
+<% if !@all_shopping_cart_items.empty? %>
+    <td>
+      <div class="table" id="cart">
+        <div class="tr">
+          <span class="td"><h2>Shopping Cart</h2></span>
+          <span class="td">&nbsp;</span>
+          <span class="td">&nbsp;</span>
+          <span class="td">&nbsp;</span>
+        </div>
+        <div class="tr">
+          <span class="td"><strong>Product Description</strong></span>
+          <span class="td"><strong>Unit Price</strong></span>
+          <span class="td"><strong>Qty.</strong></span>
+          <span class="td"><strong>Item Subtotal</strong></span>
+        </div>
+<% @all_shopping_cart_items.each do |item| %>
+        <div class="tr">
+          <span class="td"><%= item.product.description %></span>
+          <span class="td">USD <%= item.acquisition_price %></span>
+          <span class="td"><%= item.quantity %></span>
+          <span class="td">USD <%= item.subtotal %></span>
+        </div>
+<% end %>
+        <form action="/resetshoppingcart" method="post" class="tr">
+          <span class="td">
+            <br>
+            <strong>Cart Total: USD <%= @shopping_cart_total %></strong>
+            <br>
+            <br>
+            <br>
+            <br>
+            <button type="submit">Reset shopping cart</button>
+          </span>
+          <span class="td">&nbsp;</span>
+          <span class="td">&nbsp;</span>
+          <span class="td">&nbsp;</span>
+        </form>
+      </div>
+    </td>
+<% end %>
+  </tr>
+</table>
+</body>
+</html>
+
