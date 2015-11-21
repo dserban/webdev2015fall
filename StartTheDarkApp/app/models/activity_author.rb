@@ -1,0 +1,3 @@
+class ActivityAuthor < User
+end
+

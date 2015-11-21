@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>StartTheDarkApp</title>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <style>
+    body {
+      padding-top: 60px;
+      padding-bottom: 40px;
+    }
+    .floattop {
+      float: top;
+    }
+    .dark {
+      background-color: gray;
+    }
+    .header {
+      background-color: #bbbbbb;
+      color: white;
+      padding: 10px;
+    } 
+    .floatleft {
+      float: left;
+    }
+    .floatright {
+      float: right;
+    }
+    .clearboth {
+      clear: both;
+    }
+    .pushinwards {
+      padding-left: 100px;
+      padding-right: 100px;
+    }
+  </style>
+</head>
+<body>
+<div class="navbar navbar-fixed-top">
+<div class="navbar-inner">
+<div class="container">
+  <span class="brand" style="color: white;">&nbsp;&nbsp;&nbsp;StartTheDarkApp</span>
+  <span class="brand nav pull-right" style="color: white;" id="signedinstatus"><%= session[:signed_in_user_id] ? 'Currently signed in as ' + @signed_in_participant.user_name : 'Currently not signed in' %></span>
+</div>
+</div>
+</div>
+<div class="container">
+<div class="row">
+<div class="span8">
+<div class="hero-unit">
+  <table class="table table-striped">
+    <tr>
+      <td colspan=2>
+        <h1 style="font-size: 300%;">Ce facem mai pe seară?</h1>
+        <br>
+      </td>
+    </tr>
+<% @all_chosen_activities.each do |activity| %>
+    <tr class="activitysection">
+      <td>
+        <h3 class="activitydescription"><%= activity.activity_description %></h3>
+<% if activity.participant_count > 0 %>
+        <span class="label label-info">Participă <%= activity.participant_count %> <%= activity.participant_count == 1 ? 'om' : 'oameni' %></span>
+        <br>
+        <strong>Participă:</strong> <span class="activityparticipants"><%= activity.array_of_participants.map(&:user_name).join(', ') %></span>
+        <br>
+<% end %>
+        <strong>(<%= activity.activity_author.user_name %> a venit cu propunerea.)</strong>
+      </td>
+<% if session[:signed_in_user_id] %>
+      <td>
+        <h3>&nbsp;</h3>
+        <form action="/chooseactivity/<%= activity.id %>" method="post" class="chooseactivityform">
+          <button type="submit" class="btn btn-inverse btn-mini"<%= activity.id == @signed_in_participant.chosen_activity_id ? ' disabled' : '' %>>Vin&nbsp;și&nbsp;eu</button>
+        </form>
+        <h3>&nbsp;</h3>
+      </td>
+<% end %>
+    </tr>
+<% end %>
+<% if session[:signed_in_user_id] && @allow_new_activity_to_be_authored %>
+    <tr id="addactivitysection">
+      <form action="/addactivity" method="post">
+        <td>
+          <input type="text" name="activity_description" placeholder="Ce activitate propui?">
+        </td>
+        <td>
+          <button type="submit" class="btn btn-primary btn-mini">Trimite</button>
+        </td>
+      </form>
+    </tr>
+<% end %>
+  </table>
+</div>
+</div>
+<div class="span4">
+<div class="hero-unit">
+  <table class="table table-striped">
+    <tr>
+      <td>
+        <h1 style="font-size: 300%;">Sign in</h1>
+        <br>
+<% @all_participants.each do |participant| %>
+        <br>
+        <form action="/signinas/<%= participant.id %>" method="post" class="signinform">
+          <button type="submit" class="btn btn-inverse btn-mini"<%= participant.id == session[:signed_in_user_id] ? ' disabled' : '' %>>As&nbsp;<%= participant.user_name %></button>
+        </form>
+<% end %>
+      </td>
+    </tr>
+<% if session[:signed_in_user_id] %>
+    <tr>
+      <td>
+        <br>
+        <br>
+        <br>
+        <br>
+        <form action="/signout" method="post" id="signoutform">
+          <button type="submit" class="btn btn-inverse btn-mini">Sign out</button>
+        </form>
+      </td>
+    </tr>
+<% end %>
+  </table>
+</div>
+</div>
+</div>
+</div>
+</body>
+</html>
+
