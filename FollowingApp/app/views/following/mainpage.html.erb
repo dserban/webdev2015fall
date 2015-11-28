@@ -1,0 +1,95 @@
+<html>
+<head>
+  <title>FollowingApp</title>
+  <style>
+    body { padding: 10px; font-family: sans-serif; }
+    h1 { padding: 10px; }
+    table tr td { vertical-align: top; }
+    table tr td div.table .tr span.td { padding: 10px; }
+    #signin .tr span.td { padding-left: 100px; }
+    div.table { display: table; }
+    div.tr    { display: table-row; }
+    form.tr   { display: table-row; }
+    span.td   { display: table-cell; padding: 5px; }
+  </style>
+</head>
+<body>
+<% if session[:signed_in_user_id] %>
+  <h1>Currently signed in as <%= @signed_in_user_name %></h1>
+<% else %>
+  <h1>Currently not signed in</h1>
+<% end %>
+<table>
+  <tr>
+<% if session[:signed_in_user_id] %>
+    <td>
+      <div class="table">
+        <div class="tr">
+          <span class="td"><h2>Your&nbsp;followers</h2></span>
+        </div>
+<% @followers.each do |follower| %>
+        <form action="/togglefollow/<%= follower.id %>" method="post" class="tr">
+          <span class="td"><%= follower.user_name %><br><button><%= @followed_people_as_set_of_ids.include?(follower.id) ? 'Unfollow' : 'Follow' %></button></span>
+        </form>
+<% end %>
+      </div>
+    </td>
+    <td>
+      <div class="table">
+        <div class="tr">
+          <span class="td"><h2>People&nbsp;you&nbsp;are&nbsp;following</h2></span>
+        </div>
+<% @followed_people.each do |followed_person| %>
+        <form action="/togglefollow/<%= followed_person.id %>" method="post" class="tr">
+          <span class="td"><%= followed_person.user_name %><br><button>Unfollow</button></span>
+        </form>
+<% end %>
+      </div>
+    </td>
+    <td>
+      <div class="table">
+        <div class="tr">
+          <span class="td"><h2>People&nbsp;you&nbsp;may&nbsp;know</h2></span>
+        </div>
+<% @people_you_may_know.each do |person_you_may_know| %>
+        <form action="/togglefollow/<%= person_you_may_know.id %>" method="post" class="tr">
+          <span class="td"><%= person_you_may_know.user_name %><br><button>Follow</button></span>
+        </form>
+<% end %>
+      </div>
+    </td>
+    <td>
+      <div class="table">
+        <div class="tr">
+          <span class="td"><h2>Everyone</h2></span>
+        </div>
+<% @all_users.each do |user| %>
+        <form action="/togglefollow/<%= user.id %>" method="post" class="tr">
+          <span class="td"><%= user.user_name %><br><button<%= user.id == session[:signed_in_user_id] ? ' disabled' : '' %>><%= @followed_people_as_set_of_ids.include?(user.id) ? 'Unfollow' : 'Follow' %></button></span>
+        </form>
+<% end %>
+      </div>
+    </td>
+<% end %>
+    <td>
+      <div class="table" id="signin">
+        <div class="tr">
+          <span class="td"><h2>Sign&nbsp;in</h2></span>
+        </div>
+<% @all_users.each do |user| %>
+        <form action="/signinas/<%= user.id %>" method="post" class="tr">
+          <span class="td"><br><button<%= user.id == session[:signed_in_user_id] ? ' disabled' : '' %>>Sign&nbsp;in&nbsp;as&nbsp;<%= user.user_name %></button></span>
+        </form>
+<% end %>
+<% if session[:signed_in_user_id] %>
+        <form action="/signout" method="post" class="tr">
+          <span class="td"><br><button>Sign out</button></span>
+        </form>
+<% end %>
+      </div>
+    </td>
+  </tr>
+</table>
+</body>
+</html>
+
