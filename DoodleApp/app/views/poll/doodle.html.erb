@@ -1,0 +1,119 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>DoodleApp</title>
+<style>
+  body { padding: 10px; font-family: sans-serif; }
+  h1 { padding: 10px; }
+  table tr td { vertical-align: top; }
+  table tr td div.table .tr span.td { padding: 10px; }
+  #options { padding-right: 20px; border-right: 1px solid #7f7f7f; }
+  #choices { padding-left: 20px; }
+  .centertext { text-align: center; }
+  .gridcell { background-color: #d1f3d1; text-align: center; }
+  .leftpadded { padding-left: 10px; }
+  div.table { display: table; }
+  div.tr    { display: table-row; }
+  form.tr   { display: table-row; }
+  span.td   { display: table-cell; padding: 5px; }
+  form.td   { display: table-cell; padding: 5px; }
+</style>
+</head>
+<body>
+<table>
+  <tr>
+    <td>
+      <div class="table" id="options">
+        <div class="tr">
+          <span class="td"><h2>Options</h2></span>
+        </div>
+<% @all_options.each do |option| %>
+        <div class="tr">
+          <span class="td"><strong class="centertext"><%= option.option_name %></strong></span>
+          <span class="td">
+            <a href="/showeditformforoption/<%= option.id %>"><strong class="leftpadded">Edit</strong></a>
+          </span>
+        </div>
+<% end %>
+        <form action="/addnewoption" method="post" class="tr">
+          <span class="td">
+            <input type="text" name="option_name" size="10" placeholder="Option name">
+          </span>
+          <span class="td"><button type="submit">Add to poll</button></span>
+        </form>
+<% if !@all_options.empty? %>
+        <form action="/resetpolloptions" method="post" class="tr">
+          <span class="td">
+            <br>
+            <button type="submit">Reset options</button>
+          </span>
+        </form>
+<% end %>
+      </div>
+    </td>
+<% if !@all_options.empty? %>
+    <td>
+      <div class="table" id="choices">
+        <div class="tr">
+          <span class="td"><h2>Poll</h2></span>
+        </div>
+<% if !@all_participants.empty? %>
+        <div class="tr">
+          <span class="td">&nbsp;</span>
+<% @all_options.each do |option| %>
+          <span class="td centertext"><strong><%= option.option_name %></strong></span>
+<% end %>
+        </div>
+<% end %>
+<% @all_participants.each do |participant| %>
+        <div class="tr">
+          <span class="td"><strong><%= participant.participant_name %></strong></span>
+<% @all_options.each do |option| %>
+          <span class="td gridcell">
+<% if @all_choices_as_hash_of_hashes[participant.id][option.id] %>
+            <img src="images/checkmark.png">
+<% end %>
+          </span>
+<% end %>
+          <span class="td">
+            <a href="/showeditformforchoicesmadebyparticipant/<%= participant.id %>"><strong class="leftpadded">Edit</strong></a>
+          </span>
+          <form action="/deleteparticipant/<%= participant.id %>" method="post" class="td">
+            <button type="submit">Delete</button>
+          </form>
+        </div>
+<% end %>
+        <div class="tr">
+          <span class="td">&nbsp;</span>
+<% @all_options.each do |option| %>
+          <span class="td centertext"><strong><%= @vote_counts_as_hash[option.id] %></strong></span>
+<% end %>
+        </div>
+<% if !@all_participants.empty? %>
+        <div class="tr">
+          <span class="td"></span>
+        </div>
+<% end %>
+        <div class="tr">
+          <span class="td">&nbsp;</span>
+<% @all_options.each do |option| %>
+          <span class="td centertext"><strong><%= option.option_name %></strong></span>
+<% end %>
+        </div>
+        <form action="/savenewchoices" method="post" class="tr">
+          <span class="td"><input type="text" name="your_name" size="10" placeholder="Your name"></span>
+<% @all_options.each do |option| %>
+          <span class="td gridcell"><input type="checkbox" name="option<%= option.id %>"></span>
+<% end %>
+          <span class="td">
+            <button type="submit">Save</button>
+          </span>
+        </form>
+      </div>
+    </td>
+<% end %>
+  </tr>
+</table>
+</body>
+</html>
+

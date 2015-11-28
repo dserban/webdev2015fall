@@ -1,0 +1,46 @@
+<html>
+<head>
+<meta charset="UTF-8">
+<title>DoodleApp</title>
+<style>
+  body { padding: 10px }
+  h1 { padding: 10px }
+  table tr td { vertical-align: top }
+  table tr td div.table .tr span.td { padding: 10px }
+  #options { padding-right: 20px; border-right: 1px solid #7f7f7f; }
+  #choices { padding-left: 20px; }
+  .centertext { text-align: center; }
+  .gridcell { background-color: #d1f3d1; text-align: center; }
+  .leftpadded { padding-left: 10px; }
+  div.table { display: table; }
+  div.tr    { display: table-row; }
+  form.tr   { display: table-row; }
+  span.td   { display: table-cell; padding: 5px; }
+</style>
+</head>
+<body>
+<h2>Choices made by <%= @participant.participant_name %></h2>
+<table>
+<tr>
+<td>
+<div class="table">
+  <div class="tr">
+<% @all_options.each do |option| %>
+    <span class="td centertext"><strong><%= option.option_name %></strong></span>
+<% end %>
+  </div>
+  <form action="/saveeditedchoicesmadebyparticipant/<%= @participant.id %>" method="post" class="tr">
+<% @all_options.each do |option| %>
+    <span class="td gridcell"><input type="checkbox" name="option<%= option.id %>"<%= @choices_as_hash[option.id] ? ' checked' : '' %>></span>
+<% end %>
+    <span class="td">
+      <button type="submit">Save</button>
+    </span>
+  </form>
+</div>
+</td>
+</tr>
+</table>
+</body>
+</html>
+
