@@ -1,0 +1,73 @@
+<html ng-app="MemeGameApp">
+<head>
+  <meta charset="UTF-8">
+  <title>MemeGame</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      font-size: 30px;
+      padding: 30px 50px;
+    }
+    img {
+      max-width: 200px;
+      max-height: 200px;
+    }
+    button {
+      font-size: 25px;
+    }
+    input[type=text] {
+      font-size: 25px;
+    }
+    table {
+      margin-bottom: 20px;
+    }
+    a {
+      display: block;
+    }
+  </style>
+  <script src="js/socket.io.js"></script>
+  <script src="js/angular.js"></script>
+  <script src="js/app.js"></script>
+</head>
+{% raw %}
+<body ng-controller="MemeGameAppController">
+  <table>
+    <tr ng-repeat="rows in gridLayout">
+      <td ng-repeat="gridSquare in rows">
+        <img ng-src="{{ gridAsHash[gridSquare] }}">
+      </td>
+    </tr>
+  </table>
+  <form ng-submit="contributeImageURL();">
+    <input type="text" size="20" autofocus
+           placeholder="Image URL"
+           ng-model="imageURLToAdd">
+    <button>Contribute This Image</button>
+  </form>
+  <div ng-show="showErrorMessage">Error: Invalid Image URL</div>
+  <br>
+  <span>Choose from these examples below:</span>
+  <a href="http://cdn.meme.am/instances/500x/65270067.jpg" target="_blank">Sound-Of-Music Lady</a>
+  <a href="http://cdn.meme.am/instances/500x/37740962.jpg" target="_blank">What If I Told You</a>
+  <a href="http://cdn.meme.am/instances/500x/65270874.jpg" target="_blank">Grumpy Cat</a>
+  <a href="http://cdn.meme.am/instances/500x/53620698.jpg" target="_blank">Doge Funny Meme</a>
+  <a href="http://cdn.meme.am/instances/500x/17468771.jpg" target="_blank">First World Problem</a>
+  <a href="http://cdn.meme.am/instances/500x/15265093.jpg" target="_blank">Success Kid</a>
+  <a href="http://cdn.meme.am/instances/500x/31682589.jpg" target="_blank">Blue Screen Grandma</a>
+  <a href="http://cdn.meme.am/instances/500x/43209132.jpg" target="_blank">Kanye West</a>
+  <a href="http://cdn.meme.am/instances/500x/55676063.jpg" target="_blank">Mobile Data</a>
+  <a href="http://cdn.meme.am/instances/500x/32440537.jpg" target="_blank">Bad Luck Brian</a>
+  <a href="http://cdn.meme.am/instances/500x/65112035.jpg" target="_blank">Happy Caturday</a>
+  <a href="http://cdn.meme.am/instances/500x/65268250.jpg" target="_blank">Critical Defect</a>
+  <a href="http://cdn.meme.am/instances/500x/17537621.jpg" target="_blank">Save The Earth</a>
+  <a href="http://cdn.meme.am/instances/500x/63942289.jpg" target="_blank">Ancient Zergs</a>
+  <a href="http://cdn.meme.am/instances/500x/57288470.jpg" target="_blank">Dawson Crying</a>
+  <a href="http://cdn.meme.am/instances/500x/19899059.jpg" target="_blank">Yoda</a>
+  <a href="http://cdn.meme.am/instances/500x/15350074.jpg" target="_blank">Philosoraptor</a>
+  <a href="http://cdn.meme.am/instances/500x/65193888.jpg" target="_blank">Moletiplication</a>
+  <a href="http://cdn.meme.am/instances/500x/19659534.jpg" target="_blank">Nerd</a>
+  <a href="http://cdn.meme.am/instances/500x/20655567.jpg" target="_blank">The Wrong Meme</a>
+</body>
+{% endraw %}
+</html>
+
