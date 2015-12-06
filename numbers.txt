@@ -209,11 +209,7 @@ falalalala
 308
 300 User 2 was here
 309
-<<<<<<< HEAD
 310 MARIAN A SCRIS AICI
-=======
-310 Haksjdasjdadkjasbdasjkdit
->>>>>>> 20aed91e29af9792c555090f8838d3042aa42cf0
 311
 312
 313
