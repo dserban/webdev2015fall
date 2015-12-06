@@ -1,4 +1,4 @@
-100
+100 Niciunul nu castiga
 101
 102
 103
@@ -219,7 +219,7 @@ falalalala
 318
 319
 320
-321 webdev2015
+321 i was here ... original right?
 322
 323
 324
