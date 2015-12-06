@@ -1,9 +1,9 @@
 100 Niciunul nu castiga
 101
-102
-103
-104
-105
+102d
+103e
+104f
+105g
 106
 gigel
 exp(i * pi) = -1
@@ -44,7 +44,7 @@ nananannananannanananannanananannanana
 143
 144
 145
-146
+pam pam
 147
 148
 149
