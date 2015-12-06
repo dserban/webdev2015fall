@@ -1,9 +1,9 @@
 100 linie modificata
 101
-102
-103
-104
-105
+102d
+103e
+104f
+105g
 106
 gigel
 exp(i * pi) = -1
@@ -17,9 +17,9 @@ falalalala
 116
 117
 118
-119
+119 test
 120
-121
+nananannananannanananannanananannanana
 122
 123
 124
@@ -44,7 +44,7 @@ falalalala
 143
 144
 145
-146
+pam pam
 147
 148
 149
@@ -294,7 +294,7 @@ falalalala
 393
 394 CLONE IT AGAIN
 395
-396
+396 ...
 397
 398
 399
