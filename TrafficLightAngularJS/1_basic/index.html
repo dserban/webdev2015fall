@@ -1,0 +1,52 @@
+<html ng-app="AngularTrafficLightApp">
+<head>
+  <style>
+    table { border-spacing: 0px; }
+    .darkbg { background-color: black; }
+    button { margin-left: 40px; }
+  </style>
+  <script src="js/angular.js"></script>
+  <script src="js/app.js"></script>
+</head>
+<body ng-controller="AngularTrafficLightController">
+  <table>
+    <tr>
+      <td class="darkbg">
+        <img ng-src="images/{{ trafficLightState === 'red' ? 'red' : 'dark' }}.png">
+      </td>
+      <td>
+        <form ng-submit="setTrafficLightStateTo('red');">
+          <button>Make it red</button>
+        </form>
+      </td>
+    </tr>
+    <tr>
+      <td class="darkbg">
+        <img ng-src="images/{{ trafficLightState === 'amber' ? 'amber' : 'dark' }}.png">
+      </td>
+      <td>
+        <form ng-submit="setTrafficLightStateTo('amber');">
+          <button>Make it amber</button>
+        </form>
+      </td>
+    </tr>
+    <tr>
+      <td class="darkbg">
+        <img ng-src="images/{{ trafficLightState === 'green' ? 'green' : 'dark' }}.png">
+      </td>
+      <td>
+        <form ng-submit="setTrafficLightStateTo('green');">
+          <button>Make it green</button>
+        </form>
+      </td>
+    </tr>
+  </table>
+  <div style="display: none;">
+    <img src="images/dark.png">
+    <img src="images/red.png">
+    <img src="images/amber.png">
+    <img src="images/green.png">
+  </div>
+</body>
+</html>
+
